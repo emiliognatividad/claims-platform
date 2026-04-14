@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.database import engine, Base
 from app.routers import auth, cases
+from app.models import user, case, case_history
 
 Base.metadata.create_all(bind=engine)
 
