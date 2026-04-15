@@ -7,7 +7,6 @@ from app.database import get_db
 from app.models.comment import Comment
 from app.models.case import Case
 from app.models.user import User
-from app.schemas.comment import CommentCreate, CommentResponse
 
 router = APIRouter(prefix="/cases", tags=["comments"])
 
@@ -24,10 +23,10 @@ def get_current_user(token: str, db: Session):
     except JWTError:
         raise HTTPException(status_code=401, detail="Invalid token")
 
-@router.post("/{case_id}/comments", response_model=CommentResponse)
+@router.post("/{case_id}/comments")
 def add_comment(
     case_id: UUID,
-    body: CommentCreate,
+    body: dict,
     token: str,
     db: Session = Depends(get_db)
 ):
@@ -39,14 +38,21 @@ def add_comment(
     comment = Comment(
         case_id=case_id,
         author_id=user.id,
-        body=body.body
+        body=body["body"]
     )
     db.add(comment)
     db.commit()
     db.refresh(comment)
-    return comment
+    return {
+        "id": str(comment.id),
+        "case_id": str(comment.case_id),
+        "author_id": str(comment.author_id),
+        "author_name": user.full_name,
+        "body": comment.body,
+        "created_at": comment.created_at.isoformat()
+    }
 
-@router.get("/{case_id}/comments", response_model=List[CommentResponse])
+@router.get("/{case_id}/comments")
 def list_comments(
     case_id: UUID,
     token: str,
@@ -54,4 +60,16 @@ def list_comments(
 ):
     get_current_user(token, db)
     comments = db.query(Comment).filter(Comment.case_id == case_id).all()
-    return comments
+    result = []
+    for c in comments:
+        author = db.query(User).filter(User.id == c.author_id).first()
+        result.append({
+            "id": str(c.id),
+            "case_id": str(c.case_id),
+            "author_id": str(c.author_id),
+            "author_name": author.full_name if author else "Unknown",
+            "body": c.body,
+            "created_at": c.created_at.isoformat()
+        })
+    return result
+    
