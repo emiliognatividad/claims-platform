@@ -114,3 +114,20 @@ def get_history(case_id: UUID, token: str, db: Session = Depends(get_db)):
         "changed_at": h.changed_at.isoformat()
     } for h in history]
     
+@router.get("/users/list")
+def list_users(token: str, db: Session = Depends(get_db)):
+    get_current_user(token, db)
+    users = db.query(User).all()
+    return [{"id": str(u.id), "full_name": u.full_name, "role": u.role} for u in users]
+
+@router.patch("/{case_id}/assign")
+def assign_case(case_id: UUID, token: str, assigned_to: str, db: Session = Depends(get_db)):
+    get_current_user(token, db)
+    case = db.query(Case).filter(Case.id == case_id).first()
+    if not case:
+        raise HTTPException(status_code=404, detail="Case not found")
+    case.assigned_to = assigned_to
+    db.commit()
+    db.refresh(case)
+    return {"assigned_to": str(case.assigned_to)}
+    
