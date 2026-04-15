@@ -99,4 +99,18 @@ def transition_case(
     db.commit()
     db.refresh(case)
     return case
+
+@router.get("/{case_id}/history")
+def get_history(case_id: UUID, token: str, db: Session = Depends(get_db)):
+    get_current_user(token, db)
+    history = db.query(CaseHistory).filter(
+        CaseHistory.case_id == case_id
+    ).order_by(CaseHistory.changed_at.asc()).all()
+    return [{
+        "id": str(h.id),
+        "from_status": h.from_status,
+        "to_status": h.to_status,
+        "note": h.note,
+        "changed_at": h.changed_at.isoformat()
+    } for h in history]
     
