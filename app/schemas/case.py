@@ -7,6 +7,7 @@ class CaseCreate(BaseModel):
     title: str
     description: Optional[str] = None
     priority: Optional[str] = "medium"
+    claimed_amount: Optional[float] = None
 
 class CaseResponse(BaseModel):
     id: UUID
@@ -14,6 +15,7 @@ class CaseResponse(BaseModel):
     description: Optional[str]
     status: str
     priority: str
+    claimed_amount: Optional[float]
     created_by: UUID
     assigned_to: Optional[UUID]
     sla_deadline: Optional[datetime]
@@ -27,3 +29,4 @@ class CaseUpdate(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
     priority: Optional[str] = None
+    claimed_amount: Optional[float] = None

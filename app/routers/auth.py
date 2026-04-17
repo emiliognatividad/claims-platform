@@ -50,4 +50,4 @@ def login(body: LoginRequest, db: Session = Depends(get_db)):
     
     token = create_token(user.id, user.role, user.email)
     return {"access_token": token}
-    
+     

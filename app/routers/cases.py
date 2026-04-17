@@ -41,6 +41,7 @@ def create_case(body: CaseCreate, token: str, db: Session = Depends(get_db)):
         title=body.title,
         description=body.description,
         priority=body.priority,
+        claimed_amount=body.claimed_amount,
         created_by=user.id,
         sla_deadline=datetime.utcnow() + timedelta(days=5)
     )
