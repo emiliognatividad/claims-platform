@@ -3,6 +3,14 @@ set -e
 
 echo "Starting API..."
 
+echo "Creating tables..."
+python3 -c "
+from app.database import engine, Base
+from app.models import user, case, comment, case_history
+Base.metadata.create_all(bind=engine)
+print('Tables ready.')
+"
+
 USER_COUNT=$(python3 -c "
 import psycopg2
 import os
