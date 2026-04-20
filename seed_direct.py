@@ -1,4 +1,3 @@
-cat > ~/claims-platform/seed_direct.py << 'EOF'
 import uuid
 import random
 import bcrypt
@@ -37,20 +36,20 @@ cases = [
     {"title": "Grupo Xignux — electrical cables delivered with wrong gauge", "description": "[Industrial — Grupo Xignux]\n\n10km of cable delivered at 16AWG instead of 12AWG.", "priority": "high", "claimed_amount": 88000},
     {"title": "Vitro Packaging — glass panels broken in transit", "description": "[Industrial — Vitro Packaging]\n\n180 of 600 glass panels arrived broken.", "priority": "medium", "claimed_amount": 54000},
     {"title": "Grupo Bimbo — refrigerated truck failure on bread delivery", "description": "[Food & Beverage — Grupo Bimbo]\n\nRefrigeration unit failed mid-route.", "priority": "high", "claimed_amount": 38000},
-    {"title": "Grupo Lala — dairy products delivered at wrong temperature", "description": "[Food & Beverage — Grupo Lala]\n\nMilk products arrived at 12°C instead of required 4°C.", "priority": "high", "claimed_amount": 62000},
+    {"title": "Grupo Lala — dairy products delivered at wrong temperature", "description": "[Food & Beverage — Grupo Lala]\n\nMilk products arrived at 12C instead of required 4C.", "priority": "high", "claimed_amount": 62000},
     {"title": "Sigma Alimentos — mislabeled meat products in export shipment", "description": "[Food & Beverage — Sigma Alimentos]\n\nProduct labels in Spanish only.", "priority": "medium", "claimed_amount": None},
     {"title": "IMSS — medical supplies held at customs", "description": "[Government — IMSS]\n\nUrgent medical equipment shipment delayed at customs.", "priority": "high", "claimed_amount": 450000},
     {"title": "SEP — school materials delivered to wrong state", "description": "[Government — SEP]\n\nBack to school supplies for Oaxaca delivered to Veracruz.", "priority": "high", "claimed_amount": 95000},
-    {"title": "Secretaría de Salud — cold chain failure on vaccine distribution", "description": "[Government — Secretaría de Salud]\n\nNational vaccination campaign vaccines stored at incorrect temperature.", "priority": "high", "claimed_amount": 520000},
-    {"title": "Mercado Libre — cold chain breach on electronics shipment", "description": "[E-commerce — Mercado Libre]\n\nTemperature logs show excursion above 35°C for 4 hours.", "priority": "high", "claimed_amount": 73000},
-    {"title": "Amazon México — late delivery impacting Prime SLA", "description": "[E-commerce — Amazon México]\n\nShipment arrived 3 days late.", "priority": "medium", "claimed_amount": None},
-    {"title": "Pfizer México — incorrect batch number on delivery note", "description": "[Pharmaceutical — Pfizer México]\n\nBatch number on physical shipment does not match delivery documentation.", "priority": "low", "claimed_amount": None},
-    {"title": "General Motors México — wrong torque specs on bolts delivered", "description": "[Automotive — General Motors México]\n\nBolt batch delivered with incorrect torque specifications.", "priority": "high", "claimed_amount": 41000},
-    {"title": "Walmart de México — delivery to wrong distribution center", "description": "[Retail — Walmart de México]\n\nShipment arrived at Monterrey DC instead of Tijuana DC.", "priority": "medium", "claimed_amount": 29000},
-    {"title": "Toyota de México — missing assembly manuals in shipment", "description": "[Automotive — Toyota de México]\n\nAssembly documentation missing from 60-unit delivery.", "priority": "low", "claimed_amount": None},
+    {"title": "Secretaria de Salud — cold chain failure on vaccine distribution", "description": "[Government — Secretaría de Salud]\n\nNational vaccination campaign vaccines stored at incorrect temperature.", "priority": "high", "claimed_amount": 520000},
+    {"title": "Mercado Libre — cold chain breach on electronics shipment", "description": "[E-commerce — Mercado Libre]\n\nTemperature logs show excursion above 35C for 4 hours.", "priority": "high", "claimed_amount": 73000},
+    {"title": "Amazon Mexico — late delivery impacting Prime SLA", "description": "[E-commerce — Amazon México]\n\nShipment arrived 3 days late.", "priority": "medium", "claimed_amount": None},
+    {"title": "Pfizer Mexico — incorrect batch number on delivery note", "description": "[Pharmaceutical — Pfizer México]\n\nBatch number on physical shipment does not match delivery documentation.", "priority": "low", "claimed_amount": None},
+    {"title": "General Motors Mexico — wrong torque specs on bolts delivered", "description": "[Automotive — General Motors México]\n\nBolt batch delivered with incorrect torque specifications.", "priority": "high", "claimed_amount": 41000},
+    {"title": "Walmart de Mexico — delivery to wrong distribution center", "description": "[Retail — Walmart de México]\n\nShipment arrived at Monterrey DC instead of Tijuana DC.", "priority": "medium", "claimed_amount": 29000},
+    {"title": "Toyota de Mexico — missing assembly manuals in shipment", "description": "[Automotive — Toyota de México]\n\nAssembly documentation missing from 60-unit delivery.", "priority": "low", "claimed_amount": None},
     {"title": "Grupo Bimbo — incorrect invoice amount on delivery", "description": "[Food & Beverage — Grupo Bimbo]\n\nInvoice shows 500 units but only 420 were delivered.", "priority": "medium", "claimed_amount": 18000},
     {"title": "IMSS — wrong equipment model delivered to hospital", "description": "[Government — IMSS]\n\nModel X-200 delivered instead of X-400 as ordered.", "priority": "high", "claimed_amount": 280000},
-    {"title": "Cemex Logística — delivery delayed 5 days past deadline", "description": "[Industrial — Cemex Logística]\n\nConstruction project halted due to late materials delivery.", "priority": "high", "claimed_amount": 195000},
+    {"title": "Cemex Logistica — delivery delayed 5 days past deadline", "description": "[Industrial — Cemex Logística]\n\nConstruction project halted due to late materials delivery.", "priority": "high", "claimed_amount": 195000},
 ]
 
 statuses = ['open', 'open', 'open', 'in_review', 'in_review', 'pending_approval', 'escalated', 'resolved', 'resolved', 'rejected']
@@ -103,4 +102,3 @@ with engine.connect() as conn:
 
     conn.commit()
     print(f"Done! Seeded {len(users)} users and {len(cases)} cases.")
-EOF
